@@ -115,6 +115,11 @@ export default async function HomePage() {
               <div className="pill-soft">Visual Search</div>
               <div className="pill-soft">Sales Assistant</div>
             </div>
+            <div className="mt-6">
+              <Link className="btn-primary inline-flex" href="/ai/try-on">
+                Start AI Styling
+              </Link>
+            </div>
           </div>
           <BannerSlot title="Right Promo Slot" />
         </section>

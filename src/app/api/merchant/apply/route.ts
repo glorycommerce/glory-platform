@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 
 const payloadSchema = z.object({
   businessName: z.string().min(2),
+  contactName: z.string().min(2),
   slug: z.string().min(2).regex(/^[a-z0-9-]+$/),
   contactEmail: z.string().email(),
   contactPhone: z.string().min(7),
@@ -18,47 +19,50 @@ export async function POST(req: Request) {
   try {
     const payload = payloadSchema.parse(await req.json());
 
-    const existing = await db.merchant.findUnique({
-      where: { slug: payload.slug },
-      select: { id: true },
-    });
-    if (existing) {
+    const [existingMerchant, existingApplication] = await Promise.all([
+      db.merchant.findUnique({
+        where: { slug: payload.slug },
+        select: { id: true },
+      }),
+      db.merchantApplication.findFirst({
+        where: { desiredSlug: payload.slug },
+        select: { id: true },
+      }),
+    ]);
+
+    if (existingMerchant || existingApplication) {
       return NextResponse.json(
         { status: "error", message: "Slug is already in use" },
         { status: 409 }
       );
     }
 
-    const merchant = await db.merchant.create({
+    const application = await db.merchantApplication.create({
       data: {
-        name: payload.businessName,
-        slug: payload.slug,
-        status: "PENDING",
+        businessName: payload.businessName,
+        contactName: payload.contactName,
         contactEmail: payload.contactEmail,
         contactPhone: payload.contactPhone,
-        legalAcceptedAt: new Date(),
-        storefronts: {
-          create: {
-            name: payload.businessName,
-          },
-        },
+        desiredSlug: payload.slug,
+        nidUrl: payload.nidUrl,
+        tinUrl: payload.tinUrl,
+        tradeLicenseUrl: payload.tradeLicenseUrl,
+        acceptedTerms: payload.acceptedTerms,
+        acceptedPolicy: payload.acceptedPolicy,
+        status: "PENDING",
       },
       select: {
         id: true,
-        slug: true,
+        desiredSlug: true,
         status: true,
+        createdAt: true,
       },
     });
 
     return NextResponse.json({
       status: "ok",
-      merchant,
-      documents: {
-        nidUrl: payload.nidUrl,
-        tinUrl: payload.tinUrl,
-        tradeLicenseUrl: payload.tradeLicenseUrl,
-      },
-      message: "Merchant application submitted and pending admin approval.",
+      application,
+      message: "Merchant application submitted and pending review.",
     });
   } catch (error) {
     return NextResponse.json(

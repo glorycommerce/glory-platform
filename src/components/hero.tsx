@@ -83,6 +83,9 @@ export function Hero() {
                 Inventory sync, discounts, AI search, and local payment support
                 are already wired in.
               </p>
+              <Link className='btn-secondary mt-4 inline-flex' href='/merchant'>
+                Become a Merchant
+              </Link>
             </div>
             <div className='rounded-2xl bg-[linear-gradient(135deg,var(--accent)_0%,var(--accent-strong)_100%)] px-5 py-5 text-white'>
               <p className='text-xs uppercase tracking-[0.2em] text-white/70'>
