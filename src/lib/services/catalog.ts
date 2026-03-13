@@ -283,8 +283,8 @@ export async function listCatalogProducts(
     const products = (await db.product.findMany({
       where: {
         isActive: true,
-        merchant: query.merchantSlug ? { slug: query.merchantSlug } : undefined,
-        category: categorySlugs ? { slug: { in: categorySlugs } } : undefined,
+        merchant: query.merchantSlug ? { is: { slug: query.merchantSlug } } : undefined,
+        category: categorySlugs ? { is: { slug: { in: categorySlugs } } } : undefined,
         OR: query.search
           ? [
               { name: { contains: query.search, mode: "insensitive" } },
@@ -321,7 +321,7 @@ export async function getCatalogProductBySlug(
     const product = (await db.product.findFirst({
       where: {
         slug,
-        merchant: merchantSlug ? { slug: merchantSlug } : undefined,
+        merchant: merchantSlug ? { is: { slug: merchantSlug } } : undefined,
       },
       include: {
         merchant: { select: { slug: true } },
