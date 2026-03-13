@@ -9,6 +9,14 @@ type CatalogQuery = {
   limit?: number;
 };
 
+function resolveCategorySlug(slug?: string) {
+  if (!slug) {
+    return undefined;
+  }
+
+  return slug === "accessories" ? ["accessories", "custom"] : [slug];
+}
+
 type ProductQueryRecord = {
   id: string;
   merchantId: string;
@@ -183,6 +191,54 @@ function getDefaultProducts(): CatalogProduct[] {
       ],
       activeDiscountPercent: null,
     },
+    {
+      id: "seed-7",
+      merchantId: "glory",
+      merchantSlug: "glory",
+      name: "Zareen Layered Necklace",
+      slug: "zareen-layered-necklace",
+      description: "A layered gold-tone necklace set designed for elevated finishing details.",
+      categorySlug: "accessories",
+      subCategorySlug: null,
+      variants: [
+        {
+          id: "seed-v7",
+          sku: "GLR-ZAREEN-STD-GOLD",
+          size: null,
+          color: "Gold",
+          stitching: "UNSTITCHED",
+          price: 1450,
+          compareAt: 1800,
+          stock: 18,
+          images: [PRODUCT_PLACEHOLDER_IMAGE],
+        },
+      ],
+      activeDiscountPercent: 12,
+    },
+    {
+      id: "seed-8",
+      merchantId: "glory",
+      merchantSlug: "glory",
+      name: "Noor Pearl Earring Set",
+      slug: "noor-pearl-earring-set",
+      description: "A pearl-accent accessory set for occasionwear and gift-ready styling.",
+      categorySlug: "accessories",
+      subCategorySlug: null,
+      variants: [
+        {
+          id: "seed-v8",
+          sku: "GLR-NOOR-STD-PEARL",
+          size: null,
+          color: "Pearl",
+          stitching: "UNSTITCHED",
+          price: 980,
+          compareAt: null,
+          stock: 24,
+          images: [PRODUCT_PLACEHOLDER_IMAGE],
+        },
+      ],
+      activeDiscountPercent: null,
+    },
   ];
 }
 
@@ -223,11 +279,12 @@ export async function listCatalogProducts(
 ): Promise<CatalogProduct[]> {
   try {
     const take = Math.min(query.limit ?? 24, 100);
+    const categorySlugs = resolveCategorySlug(query.categorySlug);
     const products = (await db.product.findMany({
       where: {
         isActive: true,
         merchant: query.merchantSlug ? { slug: query.merchantSlug } : undefined,
-        category: query.categorySlug ? { slug: query.categorySlug } : undefined,
+        category: categorySlugs ? { slug: { in: categorySlugs } } : undefined,
         OR: query.search
           ? [
               { name: { contains: query.search, mode: "insensitive" } },

@@ -2,6 +2,7 @@ export type CategoryContent = {
   slug: string;
   label: string;
   eyebrow: string;
+  subtitle: string;
   description: string;
   image: string;
   highlights: [string, string, string];
@@ -12,6 +13,7 @@ const CATEGORY_CONTENT: Record<string, CategoryContent> = {
     slug: "womens-dresses",
     label: "Women's Dresses",
     eyebrow: "Occasionwear",
+    subtitle: "Statement silhouettes for events, evenings, and polished daywear.",
     description:
       "Structured edits, evening silhouettes, and seasonal tailoring designed for statement dressing.",
     image: "/category-dresses-glory.svg",
@@ -21,15 +23,17 @@ const CATEGORY_CONTENT: Record<string, CategoryContent> = {
     slug: "hijabs",
     label: "Hijabs & Scarves",
     eyebrow: "Signature Drapes",
+    subtitle: "Soft scarves and elevated layers for daily styling and festive looks.",
     description:
       "Soft textures, neutral palettes, and elevated scarf edits for everyday layering and festive looks.",
     image: "/category-hijabs-glory.svg",
     highlights: ["Soft modal blends", "Neutral tones", "Layer-friendly styles"],
   },
-  custom: {
-    slug: "custom",
+  accessories: {
+    slug: "accessories",
     label: "Accessories",
     eyebrow: "Finishing Details",
+    subtitle: "Jewelry and finishing pieces that sharpen the full outfit story.",
     description:
       "Curated accessories and styling details including necklaces, sets, and fashion-led accents.",
     image: "/category-accessories-glory.svg",
@@ -46,6 +50,7 @@ export function getCategoryContent(slug: string): CategoryContent {
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
         .join(" "),
       eyebrow: "Category",
+      subtitle: "Curated edits and seasonal styling for the latest Glory collections.",
       description:
         "Browse curated products, signature edits, and category-led styling designed for Glory.",
       image: "/hero-glory-editorial.svg",
@@ -57,5 +62,5 @@ export function getCategoryContent(slug: string): CategoryContent {
 export const HOME_CATEGORIES: CategoryContent[] = [
   getCategoryContent("womens-dresses"),
   getCategoryContent("hijabs"),
-  getCategoryContent("custom"),
+  getCategoryContent("accessories"),
 ];

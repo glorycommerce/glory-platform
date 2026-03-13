@@ -20,17 +20,20 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             <Link className="transition hover:text-[var(--foreground)]" href="/">
               Home
             </Link>
-            <Link className="transition hover:text-[var(--foreground)]" href="/category/womens-dresses">
+            <Link
+              className="transition hover:text-[var(--foreground)]"
+              href="/category/womens-dresses"
+            >
               Dresses
             </Link>
             <Link className="transition hover:text-[var(--foreground)]" href="/category/hijabs">
               Hijabs
             </Link>
-            <Link className="transition hover:text-[var(--foreground)]" href="/category/custom">
-              Custom
-            </Link>
-            <Link className="transition hover:text-[var(--foreground)]" href="/affiliate">
-              Affiliate
+            <Link
+              className="transition hover:text-[var(--foreground)]"
+              href="/category/accessories"
+            >
+              Accessories
             </Link>
           </nav>
           <div className="flex items-center gap-3">
@@ -48,7 +51,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </header>
       <main className="mx-auto w-full max-w-6xl px-6 py-10">{children}</main>
       <footer className="border-t border-black/5 bg-[var(--surface)]">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-10 text-sm md:grid-cols-[1.3fr_0.8fr_0.8fr]">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-10 text-sm md:grid-cols-[1.15fr_0.8fr_0.8fr_1fr]">
           <div>
             <Link href="/" className="inline-flex">
               <Image
@@ -93,6 +96,20 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               Collections
             </Link>
           </div>
+          <Link
+            href="/affiliate"
+            className="group rounded-3xl border border-[var(--accent)]/18 bg-[linear-gradient(135deg,rgba(184,134,11,0.12)_0%,rgba(255,253,248,0.96)_100%)] p-5 shadow-[0_10px_24px_rgba(140,101,19,0.08)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(140,101,19,0.12)]"
+          >
+            <p className="text-[10px] uppercase tracking-[0.24em] text-[var(--muted)]">
+              Partner Program
+            </p>
+            <p className="mt-2 text-base font-semibold text-[var(--foreground)]">
+              Earn by selling our products
+            </p>
+            <p className="mt-2 text-sm text-[var(--accent-strong)] transition group-hover:text-[var(--accent)]">
+              Affiliate
+            </p>
+          </Link>
         </div>
       </footer>
     </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ProductCard } from "@/components/product-card";
 import { SiteShell } from "@/components/site-shell";
@@ -18,12 +19,13 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryContent(slug);
+  const canonicalSlug = slug === "custom" ? "accessories" : slug;
+  const category = getCategoryContent(canonicalSlug);
 
   return {
     title: category.label,
     alternates: {
-      canonical: `${defaultSeo.url}/category/${slug}`,
+      canonical: `${defaultSeo.url}/category/${canonicalSlug}`,
     },
   };
 }
@@ -33,6 +35,9 @@ export default async function CategoryPage({
   searchParams,
 }: CategoryPageProps) {
   const { slug } = await params;
+  if (slug === "custom") {
+    redirect("/category/accessories");
+  }
   const resolvedSearchParams = await searchParams;
   const category = getCategoryContent(slug);
   const products = await listCatalogProducts({
