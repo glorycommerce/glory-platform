@@ -67,6 +67,7 @@ export default async function HomePage() {
                 }`}
                 price={`BDT ${item.variants[0]?.price?.toLocaleString?.() ?? 0}`}
                 slug={item.slug}
+                image={item.variants[0]?.images[0] ?? ""}
                 tags={[
                   item.variants[0]?.size ?? "Multi-size",
                   item.activeDiscountPercent

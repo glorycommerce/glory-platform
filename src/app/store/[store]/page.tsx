@@ -33,6 +33,7 @@ export default async function StorefrontPage({ params }: StorePageProps) {
               }`}
               price={`BDT ${item.variants[0]?.price?.toLocaleString?.() ?? 0}`}
               slug={item.slug}
+              image={item.variants[0]?.images[0] ?? ""}
             />
           ))}
         </section>

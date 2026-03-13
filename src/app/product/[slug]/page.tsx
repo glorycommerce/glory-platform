@@ -1,5 +1,6 @@
 import { SiteShell } from "@/components/site-shell";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { defaultSeo } from "@/lib/seo";
 import { getCatalogProductBySlug } from "@/lib/services/catalog";
 
@@ -24,13 +25,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   const product = await getCatalogProductBySlug(slug, "glory");
   const primary = product?.variants[0];
+  const primaryImage = primary?.images[0];
   const totalStock =
     product?.variants.reduce((sum, variant) => sum + variant.stock, 0) ?? 0;
 
   return (
     <SiteShell>
       <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr]">
-        <div className="aspect-[4/5] rounded-3xl bg-[var(--surface-soft)]" />
+        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-[var(--surface-soft)]">
+          {primaryImage ? (
+            <Image
+              src={primaryImage}
+              alt={product?.name ?? slug}
+              fill
+              priority
+              sizes="(min-width: 768px) 55vw, 100vw"
+              className="object-cover"
+            />
+          ) : null}
+        </div>
         <div className="space-y-6 rounded-3xl bg-[var(--surface)] p-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
             Product

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type ProductCardProps = {
@@ -5,16 +6,32 @@ type ProductCardProps = {
   price: string;
   subtitle: string;
   slug: string;
+  image: string;
   tags?: string[];
 };
 
-export function ProductCard({ title, price, subtitle, slug, tags }: ProductCardProps) {
+export function ProductCard({
+  title,
+  price,
+  subtitle,
+  slug,
+  image,
+  tags,
+}: ProductCardProps) {
   return (
     <Link
       href={`/product/${slug}`}
       className="group flex h-full flex-col gap-4 rounded-2xl border border-black/5 bg-[var(--surface)] p-5 shadow-sm transition hover:-translate-y-1"
     >
-      <div className="aspect-[4/5] w-full rounded-xl bg-[var(--surface-soft)]" />
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-[var(--surface-soft)]">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          sizes="(min-width: 768px) 33vw, 100vw"
+          className="object-cover transition duration-300 group-hover:scale-[1.02]"
+        />
+      </div>
       <div className="space-y-2">
         <p className="text-sm text-[var(--muted)]">{subtitle}</p>
         <h3 className="text-lg font-semibold">{title}</h3>
