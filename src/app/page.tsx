@@ -1,12 +1,17 @@
+import Image from "next/image";
+import Link from "next/link";
 import { BannerSlot } from "@/components/banner-slot";
 import { Hero } from "@/components/hero";
 import { ProductCard } from "@/components/product-card";
 import { PromoTimer } from "@/components/promo-timer";
 import { SiteShell } from "@/components/site-shell";
+import { HOME_CATEGORIES } from "@/lib/category-content";
 import { listCatalogProducts } from "@/lib/services/catalog";
 
 export default async function HomePage() {
   const featured = await listCatalogProducts({ merchantSlug: "glory", limit: 6 });
+  const categoryCards = HOME_CATEGORIES;
+
   return (
     <SiteShell>
       <div className="space-y-12">
@@ -24,26 +29,34 @@ export default async function HomePage() {
               <p className="text-sm text-[var(--muted)]">Updated daily</p>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
-              {[
-                "Women’s Dresses",
-                "Hijabs & Scarves",
-                "Co-ords & Sets",
-              ].map((label) => (
+              {categoryCards.map((item) => (
                 <div
-                  key={label}
-                  className="rounded-2xl border border-black/5 bg-[var(--surface-soft)] p-4"
+                  key={item.label}
+                  className="group relative min-h-[9.5rem] overflow-hidden rounded-2xl border border-black/5 bg-[var(--surface-soft)]"
                 >
-                  <p className="text-sm font-medium">{label}</p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Explore new drops
-                  </p>
+                  <Image
+                    src={item.image}
+                    alt={item.label}
+                    fill
+                    sizes="(min-width: 768px) 22vw, 100vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent" />
+                  <div className="relative flex h-full flex-col justify-end p-4 text-white">
+                    <div className="max-w-[13rem]">
+                      <p className="text-sm font-semibold leading-5">{item.label}</p>
+                      <p className="mt-1 text-xs leading-5 text-white/85">
+                        {item.subtitle}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
           <div className="grid gap-4">
             <PromoTimer />
-            <BannerSlot title="Hero Ad Slot" size="1200 × 480" />
+            <BannerSlot title="Hero Ad Slot" />
           </div>
         </section>
 
@@ -77,10 +90,15 @@ export default async function HomePage() {
               />
             ))}
           </div>
+          <div className="flex justify-center">
+            <Link className="btn-secondary" href="/category/womens-dresses">
+              See More
+            </Link>
+          </div>
         </section>
 
         <section className="grid gap-6 md:grid-cols-[1fr_1fr_1fr]">
-          <BannerSlot title="Left Promo Slot" size="300 × 600" />
+          <BannerSlot title="Left Promo Slot" />
           <div className="rounded-3xl bg-[var(--surface)] p-8">
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
               AI Styling
@@ -93,18 +111,12 @@ export default async function HomePage() {
               process images transiently for privacy.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <div className="rounded-full bg-[var(--accent)]/10 px-4 py-2 text-xs">
-                Try-on
-              </div>
-              <div className="rounded-full bg-[var(--accent)]/10 px-4 py-2 text-xs">
-                Visual Search
-              </div>
-              <div className="rounded-full bg-[var(--accent)]/10 px-4 py-2 text-xs">
-                Sales Assistant
-              </div>
+              <div className="pill-soft">Try-on</div>
+              <div className="pill-soft">Visual Search</div>
+              <div className="pill-soft">Sales Assistant</div>
             </div>
           </div>
-          <BannerSlot title="Right Promo Slot" size="300 × 600" />
+          <BannerSlot title="Right Promo Slot" />
         </section>
       </div>
     </SiteShell>

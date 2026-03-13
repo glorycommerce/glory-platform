@@ -17,7 +17,7 @@ export function PromoTimer() {
   const seconds = String(remaining % 60).padStart(2, "0");
 
   return (
-    <div className="rounded-2xl bg-[var(--accent)] px-5 py-4 text-white">
+    <div className="rounded-[1.5rem] bg-[linear-gradient(135deg,var(--accent)_0%,var(--accent-strong)_100%)] px-5 py-4 text-white shadow-[0_18px_36px_rgba(140,101,19,0.18)]">
       <p className="text-xs uppercase tracking-[0.3em] text-white/70">
         Flash Sale Ends
       </p>

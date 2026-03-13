@@ -58,7 +58,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p>Stock: {totalStock} available</p>
             <p>Stitching: Stitched or Unstitched</p>
           </div>
-          <button className="w-full rounded-full bg-[var(--accent)] px-6 py-3 text-sm text-white">
+          <button className="btn-primary w-full">
             Add to Cart
           </button>
         </div>

@@ -1,0 +1,46 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600" role="img" aria-label="GLORY logo with crown">
+  <defs>
+    <!-- gold gradient for the crown -->
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f6df98"></stop>
+      <stop offset="0.5" stop-color="#d4af37"></stop>
+      <stop offset="1" stop-color="#b8860b"></stop>
+    </linearGradient>
+    <linearGradient id="gold-highlight" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#fff3c7" stop-opacity="0.35"></stop>
+      <stop offset="1" stop-color="transparent" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Crown: simple vector shape with three peaks and a band -->
+  <g transform="translate(0,10)" fill="url(#gold)" stroke="#a67c1a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- crown silhouette -->
+    <path d="M520 260
+             C560 200 610 150 660 210
+             C700 260 740 120 800 140
+             C860 120 900 260 940 210
+             C990 150 1040 200 1080 260
+             L1080 300
+             C990 320 740 320 520 300
+             Z"></path>
+    <!-- band cut / inner highlight to give dimensional look -->
+    <path d="M540 290 C700 265 900 265 1040 290 L1040 305 C920 290 700 290 540 305 Z" fill="#c69112" stroke="none" opacity="0.85"></path>
+    <!-- subtle sheen across crown -->
+    <path d="M560 220 C640 170 760 140 940 220 L940 230 C760 160 640 190 560 230 Z" fill="url(#gold-highlight)" stroke="none" opacity="0.55"></path>
+    <!-- jewels / ornaments -->
+    <circle cx="660" cy="210" r="11" fill="#fef0c5" stroke="#c68e10" stroke-width="2"></circle>
+    <circle cx="800" cy="140" r="13" fill="#fff6d8" stroke="#c68e10" stroke-width="2"></circle>
+    <circle cx="940" cy="210" r="11" fill="#fef0c5" stroke="#c68e10" stroke-width="2"></circle>
+
+    <!-- small round tips on points -->
+    <circle cx="700" cy="170" r="6" fill="#d9b24a" stroke="#a67c1a" stroke-width="2"></circle>
+    <circle cx="800" cy="110" r="6" fill="#d9b24a" stroke="#a67c1a" stroke-width="2"></circle>
+    <circle cx="900" cy="170" r="6" fill="#d9b24a" stroke="#a67c1a" stroke-width="2"></circle>
+  </g>
+
+  <!-- Text: GLORY -->
+  <text x="800" y="520" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="180" fill="#3B3B3B" letter-spacing="18" style="font-weight:400;">
+    GLORY
+  </text>
+</svg>

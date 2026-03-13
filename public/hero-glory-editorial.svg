@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1200" viewBox="0 0 1400 1200" role="img" aria-label="Glory editorial hero artwork">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8efe0"/>
+      <stop offset="0.55" stop-color="#f2dfc2"/>
+      <stop offset="1" stop-color="#ddc18f"/>
+    </linearGradient>
+    <linearGradient id="fabric" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#3d352d"/>
+      <stop offset="1" stop-color="#8a6b51"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f6df98"/>
+      <stop offset="0.45" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8c6513"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="1200" fill="url(#bg)"/>
+  <circle cx="1140" cy="180" r="170" fill="#ffffff" opacity="0.4"/>
+  <circle cx="210" cy="260" r="120" fill="#ffffff" opacity="0.25"/>
+  <path d="M118 998C345 841 559 829 818 867C1037 900 1188 1000 1325 1134H118Z" fill="#d8bf95" opacity="0.72"/>
+  <path d="M889 201C916 150 970 129 1024 143C1116 168 1142 285 1086 345C1032 401 944 409 891 355C848 312 853 255 889 201Z" fill="#eadcc4"/>
+  <path d="M596 280C651 215 724 179 801 185C925 195 1008 304 994 420C982 522 902 608 777 620C666 631 561 564 530 456C512 394 535 334 596 280Z" fill="#f8f0e3"/>
+  <path d="M652 336C711 275 813 274 871 335C929 396 924 499 859 554C795 609 693 605 635 544C577 483 581 408 652 336Z" fill="#f3e7d7"/>
+  <path d="M710 261C742 261 768 286 768 317C768 348 742 374 710 374C679 374 654 348 654 317C654 286 679 261 710 261Z" fill="#d8b989"/>
+  <path d="M600 466C642 409 708 375 781 375C845 375 910 405 950 458L1027 907C958 962 862 997 781 997C702 997 602 962 537 909Z" fill="url(#fabric)"/>
+  <path d="M646 481C684 437 728 415 783 415C838 415 890 437 930 480L972 860C920 894 859 919 781 919C707 919 640 897 586 860Z" fill="#4f443a" opacity="0.88"/>
+  <path d="M661 523C725 589 845 589 913 524" fill="none" stroke="url(#gold)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M590 705C684 669 892 670 980 706" fill="none" stroke="#c29b4c" stroke-width="8" opacity="0.45"/>
+  <path d="M726 132C733 118 749 113 763 121C771 126 776 134 781 143C791 124 809 113 826 122C841 131 848 149 843 166C836 188 809 202 781 221C748 199 722 188 717 166C714 153 718 141 726 132Z" fill="url(#gold)"/>
+  <rect x="166" y="835" width="286" height="176" rx="30" fill="#fffaf1" opacity="0.92"/>
+  <text x="215" y="900" font-family="Georgia, serif" font-size="34" fill="#4e4335" letter-spacing="6">GLORY</text>
+  <text x="215" y="946" font-family="Arial, sans-serif" font-size="26" fill="#8c6513">Editorial Modestwear</text>
+  <text x="215" y="985" font-family="Arial, sans-serif" font-size="20" fill="#746757">Seasonal drop for modern dressing</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Hijabs and scarves product image">
+  <defs>
+    <linearGradient id="bgHijab" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f0e6"/>
+      <stop offset="1" stop-color="#d9c097"/>
+    </linearGradient>
+    <linearGradient id="fabricHijab" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b8860b"/>
+      <stop offset="1" stop-color="#755417"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bgHijab)"/>
+  <circle cx="980" cy="175" r="118" fill="#fff" opacity="0.25"/>
+  <circle cx="220" cy="145" r="84" fill="#fff" opacity="0.32"/>
+  <path d="M140 815C341 691 838 688 1058 814V900H140Z" fill="#c7ae83" opacity="0.74"/>
+  <path d="M475 219C542 152 654 152 721 219C786 285 786 390 718 455C652 521 543 521 477 455C409 389 408 287 475 219Z" fill="#efe0c8"/>
+  <circle cx="599" cy="214" r="81" fill="#d1ac7a"/>
+  <path d="M427 414C499 353 691 347 779 428C851 492 885 602 876 717C867 797 826 838 779 900H423C382 838 337 787 329 712C319 607 349 486 427 414Z" fill="url(#fabricHijab)"/>
+  <path d="M462 520C511 491 587 475 654 480C702 484 748 497 790 524" fill="none" stroke="#fff2c7" stroke-width="13" stroke-linecap="round" opacity="0.85"/>
+  <path d="M388 674C497 627 706 633 815 685" fill="none" stroke="#f1dc9c" stroke-width="7" opacity="0.45"/>
+</svg>

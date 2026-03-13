@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-label="Glory promo artwork two">
+  <defs>
+    <linearGradient id="bgR" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4ede0"/>
+      <stop offset="1" stop-color="#d8c09a"/>
+    </linearGradient>
+    <linearGradient id="scarf" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b8860b"/>
+      <stop offset="1" stop-color="#7d5a17"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bgR)"/>
+  <circle cx="188" cy="173" r="132" fill="#fff" opacity="0.35"/>
+  <path d="M58 1084C191 977 357 936 504 946C642 955 756 1016 842 1100V1200H58Z" fill="#c7ae84" opacity="0.72"/>
+  <rect x="514" y="104" width="250" height="88" rx="28" fill="#fffaf1" opacity="0.92"/>
+  <text x="562" y="159" font-family="Georgia, serif" font-size="32" fill="#4e4335" letter-spacing="4">NEW SEASON</text>
+  <path d="M365 243C407 196 489 197 533 244C578 291 581 372 536 420C490 469 411 469 365 420C319 371 319 293 365 243Z" fill="#eee0c9"/>
+  <circle cx="448" cy="247" r="57" fill="#d5b284"/>
+  <path d="M321 410C377 364 515 361 579 415C636 464 662 559 653 658C644 756 591 823 551 908C518 976 500 1030 486 1095H407C396 1031 380 982 349 918C300 816 247 753 242 641C238 543 261 461 321 410Z" fill="url(#scarf)"/>
+  <path d="M341 497C406 466 493 464 553 499" fill="none" stroke="#fff2c5" stroke-width="11" stroke-linecap="round" opacity="0.8"/>
+  <path d="M302 711C381 669 525 670 606 720" fill="none" stroke="#e8d39c" stroke-width="7" opacity="0.5"/>
+  <path d="M330 836C390 809 491 809 563 846" fill="none" stroke="#e8d39c" stroke-width="6" opacity="0.4"/>
+</svg>

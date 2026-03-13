@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Accessories and jewelry product image">
+  <defs>
+    <linearGradient id="bgAcc" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbf3e8"/>
+      <stop offset="1" stop-color="#ead4b0"/>
+    </linearGradient>
+    <linearGradient id="goldAcc" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7e1a0"/>
+      <stop offset="0.5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8c6513"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bgAcc)"/>
+  <circle cx="238" cy="180" r="102" fill="#fff" opacity="0.34"/>
+  <circle cx="936" cy="128" r="86" fill="#fff" opacity="0.22"/>
+  <rect x="188" y="210" width="824" height="448" rx="46" fill="#fff6e9" opacity="0.62"/>
+  <circle cx="600" cy="451" r="178" fill="none" stroke="url(#goldAcc)" stroke-width="34"/>
+  <circle cx="600" cy="451" r="132" fill="none" stroke="#f8e8bc" stroke-width="9" opacity="0.8"/>
+  <circle cx="600" cy="273" r="28" fill="#f6df98"/>
+  <circle cx="600" cy="273" r="16" fill="#fff7db"/>
+  <g transform="translate(352 328)">
+    <circle cx="0" cy="0" r="18" fill="#d8b35c"/>
+    <circle cx="82" cy="-34" r="16" fill="#f1cf7a"/>
+    <circle cx="166" cy="-14" r="18" fill="#c99a30"/>
+    <circle cx="248" cy="-30" r="16" fill="#efc869"/>
+    <circle cx="332" cy="-6" r="17" fill="#d7b258"/>
+    <circle cx="418" cy="-34" r="16" fill="#f4d280"/>
+    <circle cx="500" cy="0" r="18" fill="#c79628"/>
+  </g>
+  <rect x="335" y="697" width="531" height="52" rx="26" fill="#ccb080" opacity="0.66"/>
+  <text x="600" y="767" text-anchor="middle" font-family="Georgia, serif" font-size="46" fill="#5d4c37" letter-spacing="6">ACCESSORIES</text>
+</svg>

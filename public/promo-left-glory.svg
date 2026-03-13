@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-label="Glory promo artwork one">
+  <defs>
+    <linearGradient id="bgL" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbf5eb"/>
+      <stop offset="1" stop-color="#ead9b9"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2f2924"/>
+      <stop offset="1" stop-color="#7d6248"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bgL)"/>
+  <circle cx="702" cy="176" r="150" fill="#fff" opacity="0.4"/>
+  <path d="M144 1054C265 951 424 906 557 908C665 910 778 952 842 1013V1200H144Z" fill="#d9bf92"/>
+  <rect x="115" y="100" width="252" height="92" rx="28" fill="#fffaf1" opacity="0.9"/>
+  <text x="160" y="160" font-family="Georgia, serif" font-size="34" fill="#4e4335" letter-spacing="5">LIMITED EDIT</text>
+  <path d="M369 246C413 196 492 196 537 246C579 295 579 377 533 420C488 463 416 462 371 418C324 373 324 296 369 246Z" fill="#efe2cf"/>
+  <circle cx="451" cy="247" r="55" fill="#d8b989"/>
+  <path d="M301 448C341 389 395 355 453 355C514 355 564 389 606 448L678 936C621 976 538 1017 455 1017C372 1017 291 978 228 934Z" fill="url(#dress)"/>
+  <path d="M318 496C371 560 542 560 591 495" fill="none" stroke="#d4af37" stroke-width="16" stroke-linecap="round"/>
+  <path d="M256 677C343 642 570 640 658 680" fill="none" stroke="#f0d998" stroke-width="7" opacity="0.52"/>
+  <path d="M364 744C414 716 493 710 547 742" fill="none" stroke="#f0d998" stroke-width="6" opacity="0.44"/>
+</svg>

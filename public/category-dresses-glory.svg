@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Women's dresses product image">
+  <defs>
+    <linearGradient id="bgDress" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f9efe3"/>
+      <stop offset="1" stop-color="#e5cfab"/>
+    </linearGradient>
+    <linearGradient id="dressBody" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#40362f"/>
+      <stop offset="1" stop-color="#8c6a4f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bgDress)"/>
+  <circle cx="210" cy="190" r="110" fill="#fff" opacity="0.35"/>
+  <circle cx="980" cy="120" r="90" fill="#fff" opacity="0.22"/>
+  <path d="M162 792C362 646 812 642 1040 796V900H162Z" fill="#cdb48a" opacity="0.72"/>
+  <path d="M480 206C542 141 654 141 718 206C778 270 782 376 721 440C659 504 541 503 479 440C418 377 420 273 480 206Z" fill="#efe0ca"/>
+  <circle cx="598" cy="205" r="77" fill="#d6b383"/>
+  <path d="M406 438C455 369 524 332 600 332C677 332 744 369 794 438L893 782C817 835 706 872 600 872C493 872 387 836 308 780Z" fill="url(#dressBody)"/>
+  <path d="M435 504C486 548 561 573 598 573C641 573 714 549 766 505" fill="none" stroke="#d4af37" stroke-width="18" stroke-linecap="round"/>
+  <path d="M391 640C495 595 713 595 811 644" fill="none" stroke="#f1dca3" stroke-width="8" opacity="0.44"/>
+</svg>
