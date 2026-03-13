@@ -1,0 +1,538 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  MERCHANT
+  STAFF
+  CUSTOMER
+  AFFILIATE
+}
+
+enum MerchantStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  SSLCOMMERZ
+  COD
+  ADVANCE
+  EMI
+  STRIPE
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum CouponStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
+
+enum InventoryMovement {
+  INCREASE
+  DECREASE
+  ADJUSTMENT
+}
+
+enum Stitching {
+  STITCHED
+  UNSTITCHED
+}
+
+enum CustomOrderStatus {
+  REQUESTED
+  QUOTED
+  CONFIRMED
+  IN_PRODUCTION
+  READY
+  CANCELLED
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String?
+  email           String?   @unique
+  phone           String?   @unique
+  role            Role      @default(CUSTOMER)
+  passwordHash    String?
+  emailVerified   DateTime?
+  image           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  merchantStaff   MerchantStaff[]
+  orders          Order[]
+  affiliate       AffiliateProfile?
+  points          PointsLedger[]
+  leaderboard     LeaderboardEntry[]
+  customRequests  CustomRequest[]
+}
+
+model Merchant {
+  id              String          @id @default(cuid())
+  name            String
+  slug            String          @unique
+  status          MerchantStatus  @default(PENDING)
+  contactEmail    String
+  contactPhone    String
+  legalAcceptedAt DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  storefronts     Storefront[]
+  domainMappings  DomainMapping[]
+  products        Product[]
+  categories      Category[]
+  subCategories   SubCategory[]
+  orders          Order[]
+  coupons         Coupon[]
+  commissions     CommissionRule[]
+  plans           Subscription[]
+  staff           MerchantStaff[]
+  ads             AdPlacement[]
+  customRequests  CustomRequest[]
+  applications    MerchantApplication[]
+  resellerOrders  ResellerOrder[]
+  aiQueries       AIQuery[]
+}
+
+model MerchantApplication {
+  id            String   @id @default(cuid())
+  merchantId    String?
+  businessName  String
+  contactName   String
+  contactEmail  String
+  contactPhone  String
+  desiredSlug   String
+  nidUrl        String
+  tinUrl        String
+  tradeLicenseUrl String
+  acceptedTerms Boolean  @default(false)
+  acceptedPolicy Boolean @default(false)
+  status        MerchantStatus @default(PENDING)
+  reviewNote    String?
+  createdAt     DateTime @default(now())
+  reviewedAt    DateTime?
+
+  merchant      Merchant? @relation(fields: [merchantId], references: [id], onDelete: SetNull)
+  @@index([desiredSlug])
+}
+
+model Storefront {
+  id          String   @id @default(cuid())
+  merchantId  String
+  name        String
+  theme       String   @default("glory-default")
+  heroTitle   String?
+  heroSubtitle String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model DomainMapping {
+  id          String   @id @default(cuid())
+  merchantId  String
+  domain      String   @unique
+  verifiedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model MerchantPlan {
+  id          String   @id @default(cuid())
+  name        String
+  priceUsd    Int
+  interval    String
+  staffLimit  Int
+  trialDays   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id          String   @id @default(cuid())
+  merchantId  String
+  planId      String
+  status      String   @default("ACTIVE")
+  startedAt   DateTime @default(now())
+  endsAt      DateTime?
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  plan        MerchantPlan @relation(fields: [planId], references: [id], onDelete: Restrict)
+}
+
+model MerchantStaff {
+  id          String   @id @default(cuid())
+  merchantId  String
+  userId      String
+  role        Role     @default(STAFF)
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([merchantId, userId])
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  name        String
+  slug        String
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  products    Product[]
+  subCategories SubCategory[]
+
+  @@unique([merchantId, slug])
+}
+
+model SubCategory {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  categoryId  String
+  name        String
+  slug        String
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  products    Product[]
+
+  @@unique([categoryId, slug])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  merchantId  String
+  categoryId  String?
+  subCategoryId String?
+  name        String
+  slug        String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  subCategory SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: SetNull)
+  variants    Variant[]
+  discounts   Discount[]
+
+  @@unique([merchantId, slug])
+  @@index([merchantId, categoryId])
+}
+
+model Variant {
+  id          String   @id @default(cuid())
+  productId   String
+  sku         String   @unique
+  size        String?
+  color       String?
+  stitching   Stitching @default(UNSTITCHED)
+  price       Int
+  compareAt   Int?
+  stock       Int      @default(0)
+  images      String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  inventory   InventoryMovementLog[]
+  orderItems  OrderItem[]
+}
+
+model InventoryMovementLog {
+  id          String   @id @default(cuid())
+  variantId   String
+  movement    InventoryMovement
+  quantity    Int
+  note        String?
+  createdAt   DateTime @default(now())
+
+  variant     Variant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
+}
+
+model Discount {
+  id          String   @id @default(cuid())
+  productId   String?
+  type        DiscountType
+  value       Int
+  startsAt    DateTime?
+  endsAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  code        String   @unique
+  type        DiscountType
+  value       Int
+  status      CouponStatus @default(ACTIVE)
+  usageLimit  Int?
+  usedCount   Int      @default(0)
+  startsAt    DateTime?
+  endsAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  orders      Order[]
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  merchantId  String
+  userId      String?
+  status      OrderStatus @default(PENDING)
+  total       Int
+  paymentMethod PaymentMethod
+  paymentStatus PaymentStatus @default(PENDING)
+  couponId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items       OrderItem[]
+  payments    Payment[]
+  coupon      Coupon?  @relation(fields: [couponId], references: [id], onDelete: SetNull)
+  referrals   Referral[]
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  variantId   String
+  quantity    Int
+  unitPrice   Int
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant     Variant  @relation(fields: [variantId], references: [id], onDelete: Restrict)
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  orderId     String
+  method      PaymentMethod
+  status      PaymentStatus @default(PENDING)
+  amount      Int
+  providerRef String?
+  createdAt   DateTime @default(now())
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model PointsLedger {
+  id          String   @id @default(cuid())
+  userId      String
+  points      Int
+  reason      String
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model LeaderboardEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  month       String
+  totalSpend  Int
+  displayName String?
+  isAnonymous Boolean  @default(false)
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, month])
+}
+
+model AffiliateProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  code        String   @unique
+  commissionPercent Int @default(5)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referrals   Referral[]
+  payouts     Payout[]
+}
+
+model Referral {
+  id          String   @id @default(cuid())
+  affiliateId String
+  orderId     String
+  commission  Int
+  createdAt   DateTime @default(now())
+
+  affiliate   AffiliateProfile @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model CommissionRule {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  percent     Int
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model Payout {
+  id          String   @id @default(cuid())
+  affiliateId String
+  amount      Int
+  paidAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  affiliate   AffiliateProfile @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+}
+
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  contactEmail String
+  createdAt   DateTime @default(now())
+
+  ads         AdPlacement[]
+}
+
+model AdSlot {
+  id          String   @id @default(cuid())
+  name        String
+  width       Int
+  height      Int
+  createdAt   DateTime @default(now())
+
+  placements  AdPlacement[]
+}
+
+model AdPlacement {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  partnerId   String?
+  slotId      String
+  imageUrl    String
+  targetUrl   String?
+  startsAt    DateTime?
+  endsAt      DateTime?
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  partner     Partner?  @relation(fields: [partnerId], references: [id], onDelete: SetNull)
+  slot        AdSlot    @relation(fields: [slotId], references: [id], onDelete: Cascade)
+}
+
+model CustomRequest {
+  id          String   @id @default(cuid())
+  merchantId  String
+  userId      String?
+  status      CustomOrderStatus @default(REQUESTED)
+  description String
+  quantity    Int      @default(1)
+  quotedPrice Int?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  resellerOrders ResellerOrder[]
+}
+
+model ResellerOrder {
+  id          String   @id @default(cuid())
+  customRequestId String
+  merchantId  String
+  quantity    Int
+  moq         Int      @default(100)
+  status      CustomOrderStatus @default(REQUESTED)
+  createdAt   DateTime @default(now())
+
+  customRequest CustomRequest @relation(fields: [customRequestId], references: [id], onDelete: Cascade)
+  merchant    Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+}
+
+model AIQuery {
+  id          String   @id @default(cuid())
+  merchantId  String?
+  userId      String?
+  type        String
+  queryText   String?
+  createdAt   DateTime @default(now())
+
+  merchant    Merchant? @relation(fields: [merchantId], references: [id], onDelete: SetNull)
+}
+
+// NextAuth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
